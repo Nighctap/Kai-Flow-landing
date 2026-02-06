@@ -4,6 +4,7 @@ import { WavyBackground } from "@/components/ui/wavy-background";
 import { Zap, Pointer, Layout } from "lucide-react";
 import dynamic from "next/dynamic";
 import { DemoButton } from "@/components/demo-button";
+import { HeroVideo } from "@/components/ui/hero-video";
 
 const IntegrationsSection = dynamic(
   () => import("@/components/integrations-6")
@@ -119,19 +120,10 @@ export default function Home() {
         </div>
 
         <div className="mt-8 flex justify-center">
-          <video
+          <HeroVideo
+            src="/videos/demo.mp4"
             className="rounded-lg shadow-lg shadow-white/20 max-w-full h-full w-full pointer-events-none border border-white/10 transform-gpu"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="none"
-            aria-label="KAI Flow platform demonstration video"
-            style={{ willChange: "auto" }}
-          >
-            <source src="/videos/demo.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          />
         </div>
       </WavyBackground>
       <Feature108 {...demoData} />
