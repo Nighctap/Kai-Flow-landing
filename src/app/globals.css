@@ -120,6 +120,72 @@
     @apply bg-black text-foreground;
   }
 }
+
+/* Performance Optimizations */
 html {
   scroll-behavior: smooth;
 }
+
+body {
+  /* Optimize scroll performance */
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Enable GPU acceleration for animations */
+canvas,
+video,
+[class*="motion"],
+[class*="animate"] {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Reduce expensive CSS properties during scroll */
+* {
+  /* Remove backdrop-filter during scroll for better performance */
+  --backdrop-blur: blur(0px);
+}
+
+/* Optimize sections for scroll performance */
+section {
+  contain: layout style paint;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}
+
+/* Disable expensive effects on scroll */
+@media (hover: hover) {
+  .backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+}
+
+/* Reduce shadows for better performance */
+.shadow-2xl,
+.shadow-xl,
+.shadow-lg {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Optimize rendering performance */
+img,
+video {
+  content-visibility: auto;
+}
+

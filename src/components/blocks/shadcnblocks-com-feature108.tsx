@@ -1,5 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { Layout, Pointer, Zap } from "lucide-react";
+import Image from "next/image";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -100,7 +101,7 @@ const Feature108 = ({
               </TabsTrigger>
             ))}
           </TabsList>
-          <div className="mx-auto mt-8 max-w-screen-xl rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-6 lg:p-16">
+          <div className="mx-auto mt-8 max-w-screen-xl rounded-2xl bg-white/5 border border-white/10 p-6 lg:p-16">
             {tabs.map((tab) => (
               <TabsContent
                 key={tab.value}
@@ -121,10 +122,13 @@ const Feature108 = ({
                     {tab.content.description}
                   </p>
                 </div>
-                <img
+                <Image
                   src={tab.content.imageSrc}
                   alt={tab.content.imageAlt}
+                  width={800}
+                  height={600}
                   className="rounded-xl border border-white/10"
+                  priority={false}
                 />
               </TabsContent>
             ))}

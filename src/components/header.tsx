@@ -2,40 +2,51 @@
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { useScroll } from "motion/react";
 import Image from "next/image";
 
 const menuItems = [
   { name: "Features", href: "#features" },
   { name: "Integrations", href: "#integrations" },
   { name: "Content", href: "#content" },
-  { name: "Community", href: "#team" },
+  { name: "Testimonials", href: "#testimonials" },
+  { name: "Pricing", href: "#pricing" },
+  { name: "Team", href: "#team" },
+  { name: "FAQ", href: "#faq" },
+  { name: "Community", href: "#community" },
   { name: "Contributors", href: "#contributors" },
 ];
 
 export const HeroHeader = () => {
-  const [menuState, setMenuState] = React.useState(false);
-  const [scrolled, setScrolled] = React.useState(false);
-  const [showComingSoon, setShowComingSoon] = React.useState(false);
+  const [menuState, setMenuState] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [showComingSoon, setShowComingSoon] = useState(false);
 
-  const { scrollYProgress } = useScroll();
+  useEffect(() => {
+    let ticking = false;
 
-  React.useEffect(() => {
-    const unsubscribe = scrollYProgress.on("change", (latest) => {
-      setScrolled(latest > 0.05);
-    });
-    return () => unsubscribe();
-  }, [scrollYProgress]);
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 50);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true, capture: false });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <header>
       <nav
         data-state={menuState && "active"}
         className={cn(
-          "relative z-20 w-full  transition-colors duration-150 bg-black/80 backdrop-blur-sm",
-          scrolled && "bg-black/90"
+          "relative z-20 w-full transition-colors duration-150 bg-black/80",
+          scrolled && "bg-black/95"
         )}
       >
         <div className="mx-auto max-w-5xl px-6 transition-all duration-300">
@@ -46,7 +57,13 @@ export const HeroHeader = () => {
                 aria-label="home"
                 className="flex items-center space-x-2"
               >
-                <Image src="/logo.png" alt="logo" width={100} height={100} />
+                <Image
+                  src="/logo.png"
+                  alt="logo"
+                  width={100}
+                  height={100}
+                  loading="lazy"
+                />
               </Link>
 
               <button
@@ -74,7 +91,7 @@ export const HeroHeader = () => {
               </div>
             </div>
 
-            <div className="bg-background in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
+            <div className="bg-background in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-lg shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
               <div className="lg:hidden">
                 <ul className="space-y-6 text-base">
                   {menuItems.map((item, index) => (

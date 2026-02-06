@@ -32,7 +32,7 @@ const Contributors = () => {
         setError(null);
       } catch (error) {
         console.error("Error fetching contributors:", error);
-        setError("Contributors yüklenirken bir hata oluştu");
+        setError("Failed to load contributors. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -50,7 +50,7 @@ const Contributors = () => {
               Our Contributors
             </h2>
             <p className="text-center mt-5 opacity-75 text-white/70">
-              Contributors yükleniyor...
+              Loading contributors...
             </p>
           </div>
         </div>
@@ -113,7 +113,7 @@ const Contributors = () => {
               }}
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 transition-all duration-300 group"
+              className="bg-white/5 border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 transition-all duration-300 group"
             >
               <div className="relative w-16 h-16 mx-auto mb-4">
                 <Image

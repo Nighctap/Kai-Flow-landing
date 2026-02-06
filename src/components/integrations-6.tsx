@@ -10,7 +10,7 @@ export default function IntegrationsSection() {
         <div className="mx-auto max-w-5xl px-6">
           {/* Kartlar kutusu */}
           <div className="mx-auto max-w-md px-6 [mask-image:radial-gradient(ellipse_100%_100%_at_50%_0%,#000_70%,transparent_100%)]">
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 px-6 pb-12 pt-3 shadow-xl">
+            <div className="bg-white/5 rounded-xl border border-white/10 px-6 pb-12 pt-3 shadow-lg">
               <Integration
                 icon={<OpenAI />}
                 name="OpenAI GPT"
